@@ -47,19 +47,25 @@ def recommend_quotes(quote, category):
     # Return the top 5 most similar quotes
     return sorted_quotes['Quotes'].head(5)
 
-
-with st.container():
-    with col4:
-        txt = st.text_area("Enter the Domain", key=1)
-        if(st.button("Get Motivated!")):
-            dom = txt
             
 q_arr = []
 for i in range(90):
     if(data["Category"][i] == dom):
         q_arr.append(i)
 
-q_index = random.choice(q_arr)
+
+with st.container():
+    with col4:
+        txt = st.text_area("Enter the Domain:", key=1)
+        if(st.button("Get Motivated!")):
+            dom = txt
+    with col5:
+        txt2 = st.text_area("Enter an existing quote:", key=2)
+
+if txt2 in q_arr:
+    q_index = q_arr[txt2].index
+else:  
+    q_index = random.choice(q_arr)
 q = data["Quotes"][q_index]
 
 if dom not in ["DS", "AI", "DA"]:
